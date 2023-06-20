@@ -17,7 +17,8 @@ public class PrzedmiotyAPI {
     @GetMapping(value = "generuj")
     public String generujPrzedmioty()
     {
-        return przedmiotyData.generujPrzedmioty();
+        przedmiotyData.generujPrzedmioty();
+        return "Dodano nowe przedmioty do listy przedmiotow!";
     }
 
     @GetMapping(value = "przedmiot", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,7 +37,7 @@ public class PrzedmiotyAPI {
     public String dodajPrzedmiot(@RequestBody Przedmiot przedmiot)
     {
         przedmiotyData.dodajPrzedmiot(przedmiot);
-        return "Udało się dodac przedmiot: "+przedmiot.getNazwa();
+        return "Udalo sie dodac przedmiot: "+przedmiot.getNazwa();
     }
 
     /* BODY w POST powinno wygladac np tak:
@@ -50,9 +51,10 @@ public class PrzedmiotyAPI {
      */
 
     @DeleteMapping(value = "przedmioty", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deletePrzedmioty()
+    public String deletePrzedmioty()
     {
         przedmiotyData.usunWszystkiePrzedmioty();
+        return "Lista przedmiotow wyczyszczona!";
     }
 
 
