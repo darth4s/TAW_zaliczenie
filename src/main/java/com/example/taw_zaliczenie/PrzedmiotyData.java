@@ -13,6 +13,7 @@ public class PrzedmiotyData {
     //TWORZENIE LISTY PRZEDMIOTOW
     private List<Przedmiot> listaPrzedmiotow = new ArrayList<>();
 
+
     //dodawanie jednego przedmiotu
     public void dodajPrzedmiot(Przedmiot przedmiot)
     {
@@ -35,9 +36,10 @@ public class PrzedmiotyData {
     }
     public void usunWszystkiePrzedmioty()
     {
+
         listaPrzedmiotow.clear();
     }
-    public void generujPrzedmioty()
+    public String generujPrzedmioty()
     {
         dodajPrzedmiot(new Przedmiot("Programowanie C++", 8, 211, true, "Programowanie struktoralne i objektowe w C++" ));
         dodajPrzedmiot(new Przedmiot("Programowanie Java", 10, 214, true, "Tworenie RestAPI w SpringBoot" ));
@@ -47,6 +49,7 @@ public class PrzedmiotyData {
         dodajPrzedmiot(new Przedmiot("Zaawansowane technologie bazodanowe", 10, 214, true, "Normalizacja, tranzakcje oraz funkcje i porcedury w MySQL" ));
         dodajPrzedmiot(new Przedmiot("Inzynieria oprogramowania 2", 5, 108, true, "Zaawansowane metodologie wytwarzania oprogramowania" ));
         dodajPrzedmiot(new Przedmiot("Zarzadzanie projektem informatycznym", 5, 108, true, "Harmonogramowanie, kontrola zasobow i sciezka krytyczna" ));
+        return "Dodano nowe przedmioty do listy przedmiotow!";
     }
 
     public List<Przedmiot> pobierzWszystkiePrzedmioty()
