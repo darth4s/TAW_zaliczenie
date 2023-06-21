@@ -2,6 +2,8 @@ package com.example.taw_zaliczenie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,28 @@ public class PrzedmiotyAPI {
     }
 
     @GetMapping(value = "przedmioty", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Przedmiot> getPrzedmioty()
+    public List<Przedmiot> getPrzedmioty(@Nullable @RequestParam("id") Integer id,
+                                         @Nullable @RequestParam("sala") Integer sala,
+                                         @Nullable @RequestParam("egzamin") Boolean egzamin
+    )
     {
-        return przedmiotyData.pobierzWszystkiePrzedmioty();
+            return przedmiotyData.pobierzPrzedmioty(id, sala, egzamin);
+
+    }
+
+    @GetMapping (value = "przedmiot/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getPrzedmiotId(@PathVariable("id") Integer id)
+    {
+        Przedmiot przedmiot = przedmiotyData.pobierzPrzedmiotId(id);
+        if (przedmiot==null)
+        {
+            return ResponseEntity.notFound().build();
+        }
+        else
+        {
+            return ResponseEntity.ok(przedmiot);
+        }
+
     }
 
     @PostMapping(value = "przedmioty", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +77,22 @@ public class PrzedmiotyAPI {
         przedmiotyData.usunWszystkiePrzedmioty();
         return "Lista przedmiotow wyczyszczona!";
     }
+
+    @DeleteMapping (value = "przedmiot/{id}")
+    public ResponseEntity deletePrzedmiotId(@PathVariable("id") Integer id)
+    {
+        boolean usuniety = przedmiotyData.usunPrzedmiotId(id);
+        if (usuniety == true)
+        {
+            return ResponseEntity.noContent().build();
+        }
+        else
+        {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
 
 
 }
