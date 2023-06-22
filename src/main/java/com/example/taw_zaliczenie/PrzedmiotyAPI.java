@@ -30,12 +30,22 @@ public class PrzedmiotyAPI {
     }
 
     @GetMapping(value = "przedmioty", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Przedmiot> getPrzedmioty(@Nullable @RequestParam("id") Integer id,
+    public ResponseEntity<List<Przedmiot>> getPrzedmioty(@Nullable @RequestParam("id") Integer id,
                                          @Nullable @RequestParam("sala") Integer sala,
                                          @Nullable @RequestParam("egzamin") Boolean egzamin
     )
     {
-            return przedmiotyData.pobierzPrzedmioty(id, sala, egzamin);
+
+        if (przedmiotyData.pobierzPrzedmioty(id, sala, egzamin).isEmpty())
+        {
+            return ResponseEntity.notFound().build();
+        }
+        else
+        {
+            return ResponseEntity.ok(przedmiotyData.pobierzPrzedmioty(id, sala, egzamin));
+        }
+
+        //return przedmiotyData.pobierzPrzedmioty(id, sala, egzamin);  -- stara wersja
 
     }
 

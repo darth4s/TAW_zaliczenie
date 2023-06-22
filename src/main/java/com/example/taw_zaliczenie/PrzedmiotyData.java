@@ -66,7 +66,9 @@ public class PrzedmiotyData {
         {
             przefiltrowanePrzedmioty = przefiltrowanePrzedmioty.stream().filter(e -> e.getEgzamin().equals(egzamin)).collect(Collectors.toList());
         }
+
         return przefiltrowanePrzedmioty;
+
     }
 
     public Przedmiot pobierzPrzedmiotId(Integer id)
